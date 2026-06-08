@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAES – Tutorial Atalho iOS</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --surface2: #1c1c26;
+    --border: #2a2a38;
+    --accent: #4f8ef7;
+    --accent2: #7c3aed;
+    --green: #22d3a5;
+    --text: #f0f0f8;
+    --text2: #9090b0;
+    --text3: #55556a;
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Header */
+  .hero {
+    position: relative;
+    padding: 60px 24px 50px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(79,142,247,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(79,142,247,0.1);
+    border: 1px solid rgba(79,142,247,0.25);
+    padding: 5px 14px;
+    border-radius: 99px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 6vw, 42px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 14px;
+    background: linear-gradient(135deg, #f0f0f8 0%, #9090b0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero p {
+    font-size: 15px;
+    color: var(--text2);
+    max-width: 440px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Container */
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  /* Step */
+  .step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .step-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .step-line {
+    width: 2px;
+    flex: 1;
+    background: linear-gradient(to bottom, var(--border), transparent);
+    margin-top: 6px;
+    min-height: 20px;
+  }
+
+  .step-body {
+    flex: 1;
+    padding-bottom: 28px;
+  }
+
+  .step-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    padding-top: 6px;
+  }
+
+  .step-desc {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+
+  /* Card */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .card-header {
+    padding: 10px 14px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .copy-btn {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    background: rgba(79,142,247,0.1);
+    border: 1px solid rgba(79,142,247,0.2);
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+
+  .copy-btn:hover { background: rgba(79,142,247,0.2); }
+  .copy-btn.copied { color: var(--green); background: rgba(34,211,165,0.1); border-color: rgba(34,211,165,0.2); }
+
+  .code-block {
+    padding: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: #c9d1d9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: auto;
+  }
+
+  .code-block .kw { color: #ff7b72; }
+  .code-block .fn { color: #d2a8ff; }
+  .code-block .str { color: #a5d6ff; }
+  .code-block .cm { color: #8b949e; }
+  .code-block .num { color: #79c0ff; }
+
+  /* Tip */
+  .tip {
+    display: flex;
+    gap: 10px;
+    background: rgba(79,142,247,0.07);
+    border: 1px solid rgba(79,142,247,0.2);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+
+  .tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .tip-text { font-size: 13px; color: var(--text2); line-height: 1.6; }
+  .tip-text strong { color: var(--text); }
+
+  /* Warning */
+  .warn {
+    background: rgba(251,191,36,0.07);
+    border-color: rgba(251,191,36,0.2);
+  }
+  .warn .tip-text { color: #d4b96a; }
+  .warn .tip-text strong { color: #fbbf24; }
+
+  /* Section label */
+  .section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    margin: 32px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Action list */
+  .action-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .action-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .action-num {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .action-content { flex: 1; }
+
+  .action-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .action-detail {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: rgba(79,142,247,0.12);
+    color: var(--accent);
+    border: 1px solid rgba(79,142,247,0.2);
+    margin: 0 2px;
+  }
+
+  .tag-green {
+    background: rgba(34,211,165,0.1);
+    color: var(--green);
+    border-color: rgba(34,211,165,0.2);
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 30px 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text3);
+  }
+
+  .footer strong { color: var(--text2); }
+
+  /* Import button */
+  .import-wrap {
+    text-align: center;
+    margin: 0 0 28px;
+  }
+
+  .import-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 99px;
+    text-decoration: none;
+    transition: opacity 0.15s, transform 0.15s;
+    box-shadow: 0 4px 24px rgba(79,142,247,0.3);
+  }
+
+  .import-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .import-btn:active { transform: scale(0.98); }
+
+  .import-note {
+    font-size: 12px;
+    color: var(--text3);
+    margin-top: 10px;
+  }
+
+  /* Flow usage */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 10px 0;
+  }
+
+  .flow-step {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 7px 12px;
+    font-size: 12px;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .flow-arrow { color: var(--text3); font-size: 14px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">📱 iOS · Safari · Atalhos</div>
+  <h1>Tutorial Atalho KAES<br>para iPhone e iPad</h1>
+  <p>Passo a passo completo para configurar o atalho que gera mensagens de cobrança automaticamente.</p>
+</div>
+
+<div class="container">
+
+  <div class="import-wrap">
+    <a href="https://www.icloud.com/shortcuts/15bb7d2c84ac4e5e91ad0258e8567654" class="import-btn">
+      ⚡ Importar Atalho
+    </a>
+    <div class="import-note">Abre direto no app Atalhos do iPhone ou iPad</div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-icon">ℹ️</div>
+    <div class="tip-text"><strong>Requisito:</strong> O atalho funciona apenas no <strong>Safari</strong>. Abra sempre as faturas do Asaas pelo Safari para usar o atalho.</div>
+  </div>
+
+  <div class="section-label">Como usar</div>
+
+  <div class="flow">
+    <div class="flow-step">🌐 Abrir fatura no Safari</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">📤 Compartilhar</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">⚡ KAES Cobrança</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">📅 Digitar data</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">✅ Mensagem pronta</div>
+  </div>
+
+  <div class="section-label">Criando o atalho</div>
+
+  <!-- Passo 1 -->
+  <div class="step">
+    <div class="step-left">
+      <div class="step-num">1</div>
+      <div class="step-line"></div>
+    </div>
+    <div class="step-body">
+      <div class="step-title">Abrir o app Atalhos</div>
+      <div class="step-desc">Procure o app <strong>Atalhos</strong> no seu iPhone ou iPad. Toque em <strong>"+"</strong> no canto superior direito para criar um novo atalho.</div>
+    </div>
+  </div>
+
+  <!-- Passo 2 -->
+  <div class="step">
+    <div class="step-left">
+      <div class="step-num">2</div>
+      <div class="step-line"></div>
+    </div>
+    <div class="step-body">
+      <div class="step-title">Adicionar as ações</div>
+      <div class="step-desc">Monte as ações abaixo na ordem exata. Para cada uma, toque em <strong>"Adicionar ação"</strong> e busque pelo nome indicado.</div>
+
+      <div class="action-list">
+
+        <div class="action-item">
+          <div class="action-num">1</div>
+          <div class="action-content">
+            <div class="action-name">Obter detalhes de Página web do Safari</div>
+            <div class="action-detail">Busca: <span class="tag">Obter detalhes</span> → Muda o campo para <span class="tag tag-green">Nome</span></div>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-num">2</div>
+          <div class="action-content">
+            <div class="action-name">Dividir Texto</div>
+            <div class="action-detail">Busca: <span class="tag">Dividir</span> → Separador: <span class="tag tag-green">Personalizado</span> → digita <span class="tag">-</span> (só o traço)</div>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-num">3</div>
+          <div class="action-content">
+            <div class="action-name">Obter Item da Lista</div>
+            <div class="action-detail">Busca: <span class="tag">Obter item</span> → Posição: <span class="tag tag-green">Último Item</span></div>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-num">4</div>
+          <div class="action-content">
+            <div class="action-name">Dividir Texto</div>
+            <div class="action-detail">Busca: <span class="tag">Dividir</span> → Separador: <span class="tag tag-green">Espaços</span></div>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-num">5</div>
+          <div class="action-content">
+            <div class="action-name">Obter Itens no Intervalo</div>
+            <div class="action-detail">Busca: <span class="tag">Obter item</span> → Posição: <span class="tag tag-green">Itens no Intervalo</span> → De <span class="tag">1</span> até <span class="tag">2</span></div>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-num">6</div>
+          <div class="action-content">
+            <div class="action-name">Alterar Capitalização</div>
+            <div class="action-detail">Busca: <span class="tag">Capitalização</span> → Tipo: <span class="tag tag-green">Capitalizar Cada Palavra</span></div>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-num">7</div>
+          <div class="action-content">
+            <div class="action-name">Combinar Texto</div>
+            <div class="action-detail">Busca: <span class="tag">Combinar</span> → Separador: <span class="tag tag-green">Espaços</span></div>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-num">8</div>
+          <div class="action-content">
+            <div class="action-name">Obter detalhes de Página web do Safari</div>
+            <div class="action-detail">Busca: <span class="tag">Obter detalhes</span> → Muda o campo para <span class="tag tag-green">URL da página</span></div>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-num">9</div>
+          <div class="action-content">
+            <div class="action-name">Pedir Entrada</div>
+            <div class="action-detail">Busca: <span class="tag">Pedir entrada</span> → Pergunta: <span class="tag tag-green">Data de vencimento</span> → Tipo: <span class="tag tag-green">Data</span></div>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-num">10</div>
+          <div class="action-content">
+            <div class="action-name">Formatar Data</div>
+            <div class="action-detail">Busca: <span class="tag">Formatar data</span> → Formato: <span class="tag tag-green">Personalizado</span> → digita exatamente: <span class="tag">dd/MM/yyyy</span></div>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-num">11</div>
+          <div class="action-content">
+            <div class="action-name">Texto (a mensagem)</div>
+            <div class="action-detail">Busca: <span class="tag">Texto</span> → Cola o texto abaixo e insere as variáveis nos lugares indicados</div>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-num">12</div>
+          <div class="action-content">
+            <div class="action-name">Compartilhar</div>
+            <div class="action-detail">Busca: <span class="tag">Compartilhar</span> → Entrada: <span class="tag tag-green">Texto</span> (resultado da ação anterior)</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Passo 3 -->
+  <div class="step">
+    <div class="step-left">
+      <div class="step-num">3</div>
+      <div class="step-line"></div>
+    </div>
+    <div class="step-body">
+      <div class="step-title">Texto da mensagem (Ação 11)</div>
+      <div class="step-desc">Cole o texto abaixo na ação <strong>Texto</strong>. Depois substitua cada <strong>[variável]</strong> pela variável correspondente tocando no espaço e selecionando <strong>"Inserir variável"</strong>.</div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Mensagem — cole na Ação 11</div>
+          <button class="copy-btn" onclick="copiar(this, 'msg')">Copiar</button>
+        </div>
+        <div class="code-block" id="msg">Olá, [Texto Combinado]!
+
+Passando para lembrar que sua fatura referente ao serviço de tráfego pago da KAES venceu no dia [Data Formatada] e ainda está pendente:
+
+📌 Fatura de [Data Formatada]
+🔗 Pague aqui: [URL da página web do Safari]
+
+Pedimos que regularize o pagamento o quanto antes para evitar a interrupção do serviço. Caso já tenha pago, é só nos enviar o comprovante.
+
+Qualquer dúvida, fico à disposição!
+
+Atenciosamente,
+Equipe KAES</div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-icon">💡</div>
+        <div class="tip-text">Para inserir as variáveis: toque no lugar do <strong>[texto]</strong>, apague e toque em <strong>"Inserir variável"</strong> para selecionar a variável correta.</div>
+      </div>
+
+      <div class="tip warn">
+        <div class="tip-icon">⚠️</div>
+        <div class="tip-text"><strong>[Texto Combinado]</strong> = resultado da Ação 7 · <strong>[Data Formatada]</strong> = resultado da Ação 10 · <strong>[URL da página]</strong> = resultado da Ação 8</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Passo 4 -->
+  <div class="step">
+    <div class="step-left">
+      <div class="step-num">4</div>
+      <div class="step-line"></div>
+    </div>
+    <div class="step-body">
+      <div class="step-title">Ativar no menu Compartilhar</div>
+      <div class="step-desc">Para o atalho aparecer no Safari quando você tocar em Compartilhar:</div>
+
+      <div class="action-list">
+        <div class="action-item">
+          <div class="action-num">→</div>
+          <div class="action-content">
+            <div class="action-detail">Toque e <strong>segure</strong> o atalho na tela principal do app Atalhos</div>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">→</div>
+          <div class="action-content">
+            <div class="action-detail">Toque em <strong>"Detalhes"</strong></div>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">→</div>
+          <div class="action-content">
+            <div class="action-detail">Ative <strong>"Mostrar ao Compartilhar"</strong></div>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">→</div>
+          <div class="action-content">
+            <div class="action-detail">Abra o Safari → Compartilhar → <strong>"Editar Ações"</strong> → ative o atalho na lista</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Passo 5 -->
+  <div class="step">
+    <div class="step-left">
+      <div class="step-num">5</div>
+      <div class="step-line"></div>
+    </div>
+    <div class="step-body">
+      <div class="step-title">Nomear o atalho</div>
+      <div class="step-desc">Toque no nome no topo da tela de edição e renomeie para <strong>KAES Cobrança</strong>. Toque em <strong>OK</strong> para salvar tudo.</div>
+    </div>
+  </div>
+
+  <div class="section-label">Pronto! Como usar</div>
+
+  <div class="flow">
+    <div class="flow-step">🌐 Fatura aberta no Safari</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">📤 Compartilhar</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">⚡ KAES Cobrança</div>
+  </div>
+  <div class="flow">
+    <div class="flow-step">📅 Selecionar data</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">📋 Copiar ou enviar pelo WhatsApp</div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>KAES Marketing</strong> · Tutorial Atalho iOS · v1.0
+</div>
+
+<script>
+function copiar(btn, id) {
+  const texto = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(texto).then(() => {
+    btn.textContent = '✓ Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copiar';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
